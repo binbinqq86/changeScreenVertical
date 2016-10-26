@@ -91,6 +91,12 @@ public class VerticalScrollLayout extends ViewGroup {
         addView(nextView,2,new LayoutParams(-1,-1));
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Log.e("tianbin","======onFinishInflate======"+getChildCount());
+    }
+
     @SuppressLint("NewApi")
     private void reLayout(){
         if(currentScreen>0){
