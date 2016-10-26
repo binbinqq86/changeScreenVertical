@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        switch (ev.getAction()){
 //            case MotionEvent.ACTION_DOWN:
 //                Log.e("tianbin","activity====dispatchTouchEvent===down");
-////                return false;//无论是true false  move up都会继续触发，viewgroup中的不再触发
+////                return false;//无论是true false  move up都会继续触发，viewgroup中的不再触发，onTouchEvent中down不再触发，move up会触发
 //                break;
 //            case MotionEvent.ACTION_MOVE:
 //                Log.e("tianbin","activity====dispatchTouchEvent===move");
@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
 //                Log.e("tianbin","activity===dispatchTouchEvent====up");
 //                break;
 //        }
-//        return super.dispatchTouchEvent(ev);
+//        return super.dispatchTouchEvent(ev);//此处无论true false只走此方法，后面的所有的都不触发
 //    }
-
+//
 //    @Override
 //    public boolean onTouchEvent(MotionEvent ev) {
 //        switch (ev.getAction()){

@@ -238,8 +238,10 @@ public class VerticalScrollLayout extends ViewGroup {
 //        switch (ev.getAction()){
 //            case MotionEvent.ACTION_DOWN:
 //                Log.e("tianbin","viewgroup====dispatchTouchEvent===down");
-//                return false;//true，代表自己处理了，false返回给activity处理并且move  up都不触发，同时activity的onTouchEvent执行
-////                break;
+////                return true;
+//            //true，代表自己处理了，同时onInterceptTouchEvent中的down不会触发,move up会触发，Activity中的dispatchTouchEvent会继续走，但onTouchEvent不触发
+//            // false返回给activity处理并且move  up都不触发，同时activity的onTouchEvent执行
+//                break;
 //            case MotionEvent.ACTION_MOVE:
 //                Log.e("tianbin","viewgroup====dispatchTouchEvent===move");
 //                break;
@@ -367,6 +369,7 @@ public class VerticalScrollLayout extends ViewGroup {
         }
         switch (ev.getAction()){
             case MotionEvent.ACTION_DOWN:
+//                Log.e("tianbin","viewgroup====onInterceptTouchEvent===down");
                 mLastX=ev.getRawX();
                 mLastY=ev.getRawY();
                 break;
