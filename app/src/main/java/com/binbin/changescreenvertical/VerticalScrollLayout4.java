@@ -4,25 +4,18 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ViewDragHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AbsListView;
-import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,11 +24,11 @@ import java.util.List;
 /**
  * Created by -- on 2016/9/30.
  * 上，中，下三屏，可以垂直循环滑动
- * ViewDragHelper实现，采用setTop setBottom改变实际位置坐标
+ * ViewDragHelper实现，采用重新布局实现
  */
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class VerticalScrollLayout3 extends ViewGroup {
+public class VerticalScrollLayout4 extends ViewGroup {
     private static final int MIN_FLING_VELOCITY = 600; // dips per second
     private ViewDragHelper mDragger;
     private Context mContext;
@@ -47,19 +40,19 @@ public class VerticalScrollLayout3 extends ViewGroup {
     private int ratio;
     private boolean isFinished=false;
 
-    public VerticalScrollLayout3(Context context) {
+    public VerticalScrollLayout4(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
         init(context);
     }
 
-    public VerticalScrollLayout3(Context context, AttributeSet attrs) {
+    public VerticalScrollLayout4(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
         init(context);
     }
 
-    public VerticalScrollLayout3(Context context, AttributeSet attrs, int defStyleAttr) {
+    public VerticalScrollLayout4(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         // TODO Auto-generated constructor stub
         init(context);

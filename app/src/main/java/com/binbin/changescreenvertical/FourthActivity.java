@@ -1,6 +1,5 @@
 package com.binbin.changescreenvertical;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -12,14 +11,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThirdActivity extends AppCompatActivity {
+public class FourthActivity extends AppCompatActivity {
 
-    private VerticalScrollLayout3 verticalScrollLayout;
+    private VerticalScrollLayout4 verticalScrollLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
-        verticalScrollLayout= (VerticalScrollLayout3) findViewById(R.id.activity_main);
+        setContentView(R.layout.activity_main4);
+        verticalScrollLayout= (VerticalScrollLayout4) findViewById(R.id.activity_main);
         final View v1=LayoutInflater.from(this).inflate(R.layout.view,null);
         final View v2=LayoutInflater.from(this).inflate(R.layout.view2,null);
         final View v3=LayoutInflater.from(this).inflate(R.layout.view3,null);
@@ -36,7 +35,7 @@ public class ThirdActivity extends AppCompatActivity {
         v2.findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ThirdActivity.this,"3333333333333333",Toast.LENGTH_SHORT).show();
+                Toast.makeText(FourthActivity.this,"6666666666666666",Toast.LENGTH_SHORT).show();
             }
         });
         List<String> list=new ArrayList<>();

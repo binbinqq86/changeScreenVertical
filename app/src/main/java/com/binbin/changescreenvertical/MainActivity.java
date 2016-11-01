@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Toast.makeText(MainActivity.this,"hhhhhhhhhhhhhhhhhhh",Toast.LENGTH_LONG).show();
 //                startActivity(new Intent(MainActivity.this,SecondActivity.class));
-                startActivity(new Intent(MainActivity.this,ThirdActivity.class));
+//                startActivity(new Intent(MainActivity.this,ThirdActivity.class));
+                startActivity(new Intent(MainActivity.this,FourthActivity.class));
             }
         });
     }
