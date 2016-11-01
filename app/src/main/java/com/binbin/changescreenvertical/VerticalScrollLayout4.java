@@ -5,10 +5,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ViewDragHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -138,22 +140,22 @@ public class VerticalScrollLayout4 extends ViewGroup {
                      * 它改变的是android:translationX 属性，也即这个参数级别是和margin平行的
                      */
 //                    mViews.get(0).layout(0, top-CONTENT_HEIGHT, getWidth(), top );
-//                    mViews.get(0).setTranslationY(top);
+                    mViews.get(0).setTranslationY(top);
 
                     /**
                      * setTop() setBottom()是相对父视图左上角为原点的距离，而不是屏幕坐标
                      * 此处viewGroup是父视图，屏幕原点即viewGroup原点，坐标为0，0
                      */
 //                    Log.e("tianbin",mViews.get(0).getTop()+"@"+mViews.get(0).getBottom()+"}}}}}}}}}}}}}}}}");
-                    View v0=mViews.get(0);
-                    v0.setTop(-CONTENT_HEIGHT+top);
-                    v0.setBottom(v0.getTop()+CONTENT_HEIGHT);
+//                    View v0=mViews.get(0);
+//                    v0.setTop(-CONTENT_HEIGHT+top);
+//                    v0.setBottom(v0.getTop()+CONTENT_HEIGHT);
                 }else{
 //                    mViews.get(2).layout(0,top+CONTENT_HEIGHT,getWidth(),top+2*CONTENT_HEIGHT);
-//                    mViews.get(2).setTranslationY(top);
-                    View v2=mViews.get(2);
-                    v2.setTop(CONTENT_HEIGHT+top);
-                    v2.setBottom(v2.getTop()+CONTENT_HEIGHT);
+                    mViews.get(2).setTranslationY(top);
+//                    View v2=mViews.get(2);
+//                    v2.setTop(CONTENT_HEIGHT+top);
+//                    v2.setBottom(v2.getTop()+CONTENT_HEIGHT);
                 }
             }
 
@@ -199,30 +201,46 @@ public class VerticalScrollLayout4 extends ViewGroup {
         mViews.get(2).layout(0,CONTENT_HEIGHT,right,2*CONTENT_HEIGHT);
     }
 
-    @SuppressLint("NewApi")
+    /**
+     * 有以下几种实现方式：
+     * 1.上面使用setTranslationY，这里也使用，并且重新layout
+     *      (虽然重新布局，但是偏移值还在，所以必须设置回0，否则重新添加也是偏移的，所以会出现白屏，除非重新去new一个布局，废弃老的，
+     *          切一屏，然后通过慢慢滑动可以发现，配置比较低比较卡的手机可能容易发现)
+     *      (因为是动画，并不是真实的位置改变，所以当移动回来的时候，瞬间会有一个白屏闪过，延时布局可以证明)
+     * 2.上面使用setTop，这里使用removeViewAt addView或者重新layout都可以
+     *      (比较完美的方案，改变的是真实的位置，所以不会出现bug)
+     */
     private void reLayout(){
         if(currentScreen>0){
+            mViews.get(2).setTranslationY(0);
             //说明是最后一屏，此时把第一个屏移动到最下面，则当前屏在中间，重新布局
             View tempView=mViews.get(0);
 //            tempView.setTranslationY(2*CONTENT_HEIGHT);
-            mViews.get(0).setTop(CONTENT_HEIGHT);
-            mViews.get(0).setBottom(2*CONTENT_HEIGHT);
+//            mViews.get(0).setTop(CONTENT_HEIGHT);
+//            mViews.get(0).setBottom(2*CONTENT_HEIGHT);
             mViews.remove(0);
             mViews.add(tempView);
 //            removeViewAt(0);
 //            addView(mViews.get(2),2,new LayoutParams(-1,-1));
         }else{
+            mViews.get(0).setTranslationY(0);
             //说明是第一屏，此时把最后一个屏移动到最上面，则当前屏在中间，重新布局
             View tempView=mViews.get(2);
 //            tempView.setTranslationY(-2*CONTENT_HEIGHT);
-            mViews.get(2).setTop(-CONTENT_HEIGHT);
-            mViews.get(2).setBottom(0);
+//            mViews.get(2).setTop(-CONTENT_HEIGHT);
+//            mViews.get(2).setBottom(0);
             mViews.remove(2);
             mViews.add(0,tempView);
-//            removeViewAt(2);
+//            removeViewAt(2);//或者重新layout()也行
 //            addView(mViews.get(0),0,new LayoutParams(-1,-1));
         }
-//        layout(getWidth());
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                layout(getWidth());
+//            }
+//        },10);
+        layout(getWidth());
         currentScreen=0;
     }
 

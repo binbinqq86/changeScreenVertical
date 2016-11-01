@@ -27,6 +27,7 @@ import java.util.List;
 /**
  * Created by -- on 2016/9/30.
  * 只有一个界面，用来滑动，滑动完成仍然显示该界面
+ * 更完整的使用——详见项目(酷客2.1版本)。。。
  */
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)

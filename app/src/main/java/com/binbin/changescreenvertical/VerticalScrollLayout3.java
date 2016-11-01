@@ -123,7 +123,8 @@ public class VerticalScrollLayout3 extends ViewGroup {
 
             /**
              * 此处要改变实际的top等坐标位置，因为ViewDragerHelper中是根据这几个来判断点击的view的
-             * 详见：findTopChildUnder
+             * 详见：{@link android.support.v4.widget.ViewDragHelper#findTopChildUnder(int x, int y)}
+             * @see android.support.v4.widget.ViewDragHelper#findTopChildUnder(int, int)
              * @param changedView
              * @param left
              * @param top

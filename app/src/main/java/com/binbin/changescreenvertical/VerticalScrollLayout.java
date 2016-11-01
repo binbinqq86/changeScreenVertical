@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.ViewDragHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -97,27 +98,37 @@ public class VerticalScrollLayout extends ViewGroup {
         Log.e("tianbin","======onFinishInflate======"+getChildCount());
     }
 
-    @SuppressLint("NewApi")
+    private void layout(int right){
+//        setScrollY(0);
+        mViews.get(0).layout(0,-CONTENT_HEIGHT,right,0);
+        mViews.get(1).layout(0,0,right,CONTENT_HEIGHT);
+        mViews.get(2).layout(0,CONTENT_HEIGHT,right,2*CONTENT_HEIGHT);
+    }
+
+    /**
+     * 此处详细解释请见{@link com.binbin.changescreenvertical.VerticalScrollLayout4}
+     */
     private void reLayout(){
         if(currentScreen>0){
             //说明是最后一屏，此时把第一个屏移动到最下面，则当前屏在中间，重新布局
             View tempView=mViews.get(0);
             mViews.remove(0);
             mViews.add(2, tempView);
-            removeViewAt(0);
-            addView(mViews.get(2),2,new LayoutParams(-1,-1));
+//            removeViewAt(0);
+//            addView(mViews.get(2),2,new LayoutParams(-1,-1));
         }else{
             //说明是第一屏，此时把最后一个屏移动到最上面，则当前屏在中间，重新布局
             View tempView=mViews.get(2);
             mViews.remove(2);
             mViews.add(0,tempView);
-            removeViewAt(2);
-            addView(mViews.get(0),0,new LayoutParams(-1,-1));
+//            removeViewAt(2);
+//            addView(mViews.get(0),0,new LayoutParams(-1,-1));
         }
         onScrollFinished.onScrollFinished();
         currentScreen=0;
-        setScrollY(0);
+        setScrollY(0);//也可以放到layout中
 //        scrollTo(0,0);
+        layout(getWidth());
     }
 
     public List<View> getViews(){
@@ -209,9 +220,7 @@ public class VerticalScrollLayout extends ViewGroup {
         //自定义的viewGroup，重写这里是每个子view的margin padding gravity等属性需要重写ViewGroup.MarginLayoutParams，不需要的则不用重写，子view中的布局按照布好的规则自动就是好的，但是必须要重写onmeasure
         //若是继承LinearLayout等现成的布局，则不用重写onmeasure onlayout
         //参考：http://ticktick.blog.51cto.com/823160/1542200/
-        mViews.get(0).layout(0,-CONTENT_HEIGHT,right,0);
-        mViews.get(1).layout(0,0,right,CONTENT_HEIGHT);
-        mViews.get(2).layout(0,CONTENT_HEIGHT,right,2*CONTENT_HEIGHT);
+        layout(right);
 
         //怎么处理weight  margin  padding  gravity等？？？日后处理，包括github上的垂直滑动的广告viewpager也有问题
         //待研究。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
