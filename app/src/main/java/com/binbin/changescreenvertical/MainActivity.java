@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         final View v1=LayoutInflater.from(this).inflate(R.layout.view,null);
         final View v2=LayoutInflater.from(this).inflate(R.layout.view2,null);
         final View v3=LayoutInflater.from(this).inflate(R.layout.view3,null);
+        verticalScrollLayout.initViews(v1,v2,v3);//放在前面后面没有影响
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -73,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        verticalScrollLayout.initViews(v1,v2,v3);
         verticalScrollLayout.setOnScrollFinished(new VerticalScrollLayout.OnScrollFinished() {
             @Override
             public void onScrollFinished() {
