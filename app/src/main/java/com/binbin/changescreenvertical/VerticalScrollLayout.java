@@ -426,7 +426,7 @@ public class VerticalScrollLayout extends ViewGroup {
      * @return
      */
     private View isScrollViewGroup(View view){
-        if(view instanceof ViewPager||
+        if(/**view instanceof ViewPager||*/
                 view instanceof ScrollView ||
                 view instanceof ListView||
                 view instanceof RecyclerView ||

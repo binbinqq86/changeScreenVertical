@@ -7,6 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.binbin.changescreenvertical.fragment.Fragment1;
+import com.binbin.changescreenvertical.fragment.Fragment2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +54,25 @@ public class MainActivity extends AppCompatActivity {
             list.add(i+"");
         }
         lv.setAdapter(new ArrayAdapter<String>(this,R.layout.view,R.id.tv,list));
+
+        ViewPager vp= (ViewPager) v3.findViewById(R.id.vp);
+        final List<Fragment> fragmentList=new ArrayList<>();
+        fragmentList.add(new Fragment1());
+        fragmentList.add(new Fragment2());
+        vp.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return fragmentList.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                if (fragmentList != null)
+                    return fragmentList.size();
+                else return 0;
+            }
+        });
+
         verticalScrollLayout.initViews(v1,v2,v3);
         verticalScrollLayout.setOnScrollFinished(new VerticalScrollLayout.OnScrollFinished() {
             @Override
@@ -65,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this,"hhhhhhhhhhhhhhhhhhh",Toast.LENGTH_LONG).show();
 //                startActivity(new Intent(MainActivity.this,SecondActivity.class));
 //                startActivity(new Intent(MainActivity.this,ThirdActivity.class));
-                startActivity(new Intent(MainActivity.this,FourthActivity.class));
+//                startActivity(new Intent(MainActivity.this,FourthActivity.class));
             }
         });
     }
