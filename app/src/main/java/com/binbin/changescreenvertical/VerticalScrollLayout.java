@@ -389,6 +389,7 @@ public class VerticalScrollLayout extends ViewGroup {
                 mLastY=ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
+//                Log.e("tianbin","viewgroup====onInterceptTouchEvent===move");
                 if((Math.abs(mLastY-ev.getRawY())>mTouchSlop)&&
                                 (Math.abs(mLastX-ev.getRawX())<mTouchSlop)){
                     //自己来处理滑动
